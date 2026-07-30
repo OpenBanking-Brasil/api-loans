@@ -35,7 +35,7 @@ info:
     ### `/contracts/{contractId}/payments`
       - permissions:
         - GET: **LOANS_PAYMENTS_READ**
-  version: 2.6.0
+  version: 2.7.0
   license:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0'
@@ -1110,7 +1110,6 @@ components:
         - productType
         - productSubType
         - ipocCode
-        - productSubTypeCategory
       properties:
         contractId:
           type: string
@@ -1135,8 +1134,6 @@ components:
           $ref: '#/components/schemas/EnumContractProductTypeLoans'
         productSubType:
           $ref: '#/components/schemas/EnumContractProductSubTypeLoans'
-        productSubTypeCategory:
-            $ref: '#/components/schemas/EnumContractProductSubTypeCategory'
         ipocCode:
           type: string
           maxLength: 67

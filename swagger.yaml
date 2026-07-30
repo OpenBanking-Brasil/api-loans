@@ -682,7 +682,6 @@ components:
         - interestRates
         - contractedFees
         - contractedFinanceCharges
-        - productSubTypeCategory
       properties:
         contractNumber:
           type: string
@@ -718,8 +717,6 @@ components:
           $ref: '#/components/schemas/EnumContractProductTypeLoans'
         productSubType:
           $ref: '#/components/schemas/EnumContractProductSubTypeLoans'
-        productSubTypeCategory:
-          $ref: '#/components/schemas/EnumContractProductSubTypeCategory'
         contractDate:
           type: string
           format: date
@@ -818,7 +815,7 @@ components:
           description: |
             Campo que identifica se existe seguro contratado para o Empréstimo, onde seguro contratado é `true` e não contratado é `false`.  
 
-            [Restrição] Este campo é de envio obrigatório caso o campo productSubTypeCategory seja preenchido `CREDITO_PESSOAL_CLEAN` ou `CONSIGNADO_SIAPE`.  
+            [Restrição] Este campo é de envio obrigatório caso o campo `productSubType` seja preenchido com `CREDITO_PESSOAL_SEM_CONSIGNACAO`.​            
           example: true
         amortizationScheduled:
           $ref: '#/components/schemas/EnumContractAmortizationScheduled'
@@ -845,7 +842,7 @@ components:
         interestRates:
           type: array
           description: |
-            Objeto que traz o conjunto de informações necessárias para demonstrar a composição das taxas de juros remuneratórios da Modalidade de crédito. Caso o contrato não possua taxas de juros, deve ser compartilhada uma lista vazia. Caso o contrato possua uma taxa de juros com valor 0, deve ser compartilhado um objeto com o valor 0 de forma explícita. Para contratos em renegociação, a taxa de empréstimo compartilhada deve se manter a taxa do contrato vigente, sendo alterada para a renegociada ao fim do processo de renegociação. Para os produtos CPC (campo `productSubTypeCategory` preenchido com `CREDITO_PESSOAL_CLEAN`) ou Consignado Federal (campo `productSubTypeCategory` preenchido com `CONSIGNADO_SIAPE`) deve-se obrigatoriamente conter a taxa nominal e a taxa efetiva (campo taxPeriodicity) com periodicidade a.a. (ao ano), podendo adicionalmente conter, além das taxas nominal e efetiva ao ano, outras com outra periodicidade.  
+            Objeto que traz o conjunto de informações necessárias para demonstrar a composição das taxas de juros remuneratórios da Modalidade de crédito. Caso o contrato não possua taxas de juros, deve ser compartilhada uma lista vazia. Caso o contrato possua uma taxa de juros com valor 0, deve ser compartilhado um objeto com o valor 0 de forma explícita. Para contratos em renegociação, a taxa de empréstimo compartilhada deve se manter a taxa do contrato vigente, sendo alterada para a renegociada ao fim do processo de renegociação. Para o campo `productSubType` preenchido com `CREDITO_PESSOAL_SEM_CONSIGNACAO` deve-se obrigatoriamente conter a taxa nominal e a taxa efetiva (campo `taxPeriodicity`) com periodicidade `a.a.` (ao ano), podendo adicionalmente conter, além das taxas nominal e efetiva ao ano, outras com outra periodicidade.​
           items:
             $ref: '#/components/schemas/LoansContractInterestRate'
           minItems: 0
@@ -871,7 +868,7 @@ components:
           description: >
             Informa o valor de face (corresponde ao valor da parcela no vencimento). Para contratos liquidados, retornar zero, seguindo o pattern. 
             
-            [Restrição] Este campo é de envio obrigatório caso o campo `productSubTypeCategory` seja preenchido `CREDITO_PESSOAL_CLEAN` ou `CONSIGNADO_SIAPE` no endpoint /contracts/{contractId}.  
+            [Restrição] Este campo é de envio obrigatório caso o campo `productSubType` seja preenchido com `CREDITO_PESSOAL_SEM_CONSIGNACAO`.​
     LoansContractedFee:
       type: object
       description: Objeto que traz o conjunto de informações necessárias para demonstrar a composição das taxas de juros remuneratórios da Modalidade de crédito
